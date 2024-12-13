@@ -2,13 +2,13 @@ import { motion } from 'framer-motion';
 
 export default function Home() {
     const coursesCertificates = [
-        { id: 1, src: "./WebDev.jpg", name: "Web Development Certificate" },
-        { id: 2, src: "./Nptel.jpg", name: "NPTEL Java Certificate" },
-        { id: 3, src: "./C.jpg", name: "C Certificate" },
+        { id: 1, src: "/WebDev.jpg", name: "Web Development Certificate" },
+        { id: 2, src: "/Nptel.jpg", name: "NPTEL Java Certificate" },
+        { id: 3, src: "/C.jpg", name: "C Certificate" },
     ];
 
     const internshipCertificates = [
-        { id: 4, src: "./Eduskills.jpg", name: "Eduskills Internship Certificate"}
+        { id: 4, src: "/Eduskills.jpg", name: "Eduskills Internship Certificate"}
     ];
 
     const staggerContainer = {
