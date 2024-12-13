@@ -88,7 +88,7 @@ export default function Home() {
                     className="sm:w-96 w-48 opacity-90 
                     transition-all duration-500
                     filter hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]"
-                    src="./piyush.png"
+                    src="/piyush.png"
                     alt="image2-left" 
                 />
             </motion.div>
