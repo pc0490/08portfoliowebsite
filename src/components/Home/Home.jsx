@@ -1,14 +1,19 @@
-import { motion } from 'framer-motion';
+// Import Framer Motion for animations...
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Home() {
+    // Data arrays for certificates
     const coursesCertificates = [
-        { id: 1, src: "./WebDev.jpg", name: "Web Development Certificate" },
-        { id: 2, src: "./Nptel.jpg", name: "NPTEL Java Certificate" },
-        { id: 3, src: "./C.jpg", name: "C Certificate" },
+        { id: 1, src: "/WebDev.jpg", name: "Web Development Certificate" },
+        { id: 2, src: "/Nptel.jpg", name: "NPTEL Java Certificate" },
+        { id: 3, src: "/C.jpg", name: "C Certificate" },
+        { id: 4, src: "/DSA.jpg", name: "DSA Certificate" },
     ];
 
     const internshipCertificates = [
-        { id: 4, src: "./Eduskills.jpg", name: "Eduskills Internship Certificate"}
+        { id: 5, src: "/Eduskills.jpg", name: "Eduskills Internship Certificate"}
     ];
 
     // State for modal
@@ -62,7 +67,7 @@ export default function Home() {
     // Modal Component
     const CertificateModal = ({ certificate, onClose }) => {
         if (!certificate) return null;
-        
+
         return (
             <motion.div
                 initial={{ opacity: 0 }}
@@ -137,6 +142,9 @@ export default function Home() {
                     </p>
                 </div>
             </div>
+            <p className="text-gray-300 text-center font-medium">
+                {cert.name}
+            </p>
         </motion.div>
     );
 
@@ -162,6 +170,7 @@ export default function Home() {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="relative overflow-hidden text-gray-100 sm:mx-16 mx-2 sm:py-16"
             >
+                {/* Portfolio title and name */}
                 <div className="relative z-10 max-w-screen-xl px-4 pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
                     <div className="max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto animate-fadeIn">
                         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
@@ -201,7 +210,7 @@ export default function Home() {
                     className="sm:w-96 w-48 opacity-90 
                     transition-all duration-500
                     filter hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]"
-                    src="piyush.jpg"
+                    src="/piyush.jpg"
                     alt="image2-left" 
                 />
             </motion.div>
@@ -256,6 +265,7 @@ export default function Home() {
                 </h2>
             </motion.div>
 
+            {/* About Content with Image */}
             <div className="container m-auto px-6 text-gray-300 md:px-12 xl:px-6 py-8">
                 <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-start lg:gap-12">
                     <div className="md:5/12 lg:w-4/12 animate-slideIn">
@@ -313,26 +323,9 @@ export default function Home() {
                     >
                         Courses Certifications
                     </motion.h2>
-
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {coursesCertificates.map((cert) => (
-                            <motion.div 
-                                key={cert.id}
-                                variants={cardVariants}
-                                whileHover="hover"
-                                className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full"
-                            >
-                                <div className="relative aspect-[4/3] w-full">
-                                    <img
-                                        className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
-                                        src={cert.src}
-                                        alt={cert.name}
-                                    />
-                                </div>
-                                <p className="text-gray-300 text-center font-medium">
-                                    {cert.name}
-                                </p>
-                            </motion.div>
+                            <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
 
@@ -356,66 +349,21 @@ export default function Home() {
                     >
                         Internship Certifications
                     </motion.h2>
-
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {internshipCertificates.map((cert) => (
-                            <motion.div 
-                                key={cert.id}
-                                variants={cardVariants}
-                                whileHover="hover"
-                                className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full"
-                            >
-                                <div className="relative aspect-[4/3] w-full">
-                                    <img
-                                        className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
-                                        src={cert.src}
-                                        alt={cert.name}
-                                    />
-                                </div>
-                                <p className="text-gray-300 text-center font-medium">
-                                    {cert.name}
-                                </p>
-                            </motion.div>
+                            <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
                 </motion.div>
             </div>
 
-            {/* Enhanced Modal */}
+            {/* Modal */}
             <AnimatePresence mode="wait">
                 {selectedCertificate && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black bg-opacity-90 z-50 
-                        backdrop-blur-sm flex items-center justify-center p-4"
-                        onClick={() => setSelectedCertificate(null)}
-                    >
-                        <motion.div
-                            initial={{ scale: 0.5, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.5, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="relative w-full h-full flex items-center justify-center p-4"
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <img
-                                src={selectedCertificate.src}
-                                alt={selectedCertificate.name}
-                                className="w-auto h-auto max-w-[90%] max-h-[85vh] object-contain rounded-lg"
-                            />
-                            <button
-                                onClick={() => setSelectedCertificate(null)}
-                                className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </motion.div>
-                    </motion.div>
+                    <CertificateModal 
+                        certificate={selectedCertificate} 
+                        onClose={() => setSelectedCertificate(null)} 
+                    />
                 )}
             </AnimatePresence>
         </motion.div>
