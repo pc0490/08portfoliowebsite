@@ -1,16 +1,25 @@
-import { motion } from 'framer-motion';
+// Import Framer Motion for animations
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Home() {
+    // Data arrays for certificates
     const coursesCertificates = [
         { id: 1, src: "/WebDev.jpg", name: "Web Development Certificate" },
         { id: 2, src: "/Nptel.jpg", name: "NPTEL Java Certificate" },
         { id: 3, src: "/C.jpg", name: "C Certificate" },
+        { id: 4, src: "/DSA.jpg", name: "DSA Certificate" },
     ];
 
     const internshipCertificates = [
-        { id: 4, src: "/Eduskills.jpg", name: "Eduskills Internship Certificate"}
+        { id: 5, src: "/Eduskills.jpg", name: "Eduskills Internship Certificate"}
     ];
 
+    // State for modal
+    const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+    // Animation variants
     const staggerContainer = {
         initial: { opacity: 0 },
         animate: {
@@ -44,14 +53,100 @@ export default function Home() {
         }
     };
 
+    // Modal Component
+    const CertificateModal = ({ certificate, onClose }) => {
+        if (!certificate) return null;
+        
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={onClose}
+                className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
+            >
+                <motion.div
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0.5 }}
+                    className="relative w-full max-w-4xl max-h-[90vh] flex items-center justify-center"
+                    onClick={e => e.stopPropagation()}
+                >
+                    <img
+                        src={certificate.src}
+                        alt={certificate.name}
+                        className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg"
+                    />
+                    <button
+                        onClick={onClose}
+                        className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </motion.div>
+            </motion.div>
+        );
+    };
+
+    CertificateModal.propTypes = {
+        certificate: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired
+        }),
+        onClose: PropTypes.func.isRequired
+    };
+
+    // Certificate Card Component
+    const CertificateCard = ({ cert }) => (
+        <motion.div 
+            variants={cardVariants}
+            whileHover="hover"
+            onClick={() => setSelectedCertificate(cert)}
+            className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full cursor-pointer"
+        >
+            <div className="relative aspect-[4/3] w-full">
+                <img
+                    className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
+                    src={cert.src}
+                    alt={cert.name}
+                />
+            </div>
+            <p className="text-gray-300 text-center font-medium">
+                {cert.name}
+            </p>
+        </motion.div>
+    );
+
+    CertificateCard.propTypes = {
+        cert: PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired
+        }).isRequired
+    };
+
     return (
         <div className="w-full bg-black min-h-screen">
+            {/* Header Section with Title */}
             <motion.aside 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
                 className="relative overflow-hidden text-gray-100 sm:mx-16 mx-2 sm:py-16"
             >
+                {/* Portfolio title and name */}
                 <div className="relative z-10 max-w-screen-xl px-4 pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
                     <div className="max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto animate-fadeIn">
                         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
@@ -62,6 +157,7 @@ export default function Home() {
                 </div>
             </motion.aside>
 
+            {/* Profile Image with Animation */}
             <motion.div 
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ 
@@ -73,7 +169,7 @@ export default function Home() {
                 }}
                 whileHover={{ 
                     scale: 1.1,
-                    rotate: [0, -5, 5, -5, 0],
+                    rotate: [0, -5, 5, -5, 0], // Rotation animation on hover
                     transition: {
                         duration: 0.5,
                         rotate: {
@@ -93,6 +189,7 @@ export default function Home() {
                 />
             </motion.div>
 
+            {/* Decorative Image Section */}
             <div className="flex justify-center items-center px-4 sm:px-16">
                 <motion.div 
                     initial={{ y: 50, opacity: 0 }}
@@ -111,6 +208,7 @@ export default function Home() {
                 </motion.div>
             </div>
 
+            {/* Tagline Section */}
             <motion.h1 
                 initial={{ opacity: 0.8 }}
                 animate={{ opacity: 1 }}
@@ -120,12 +218,14 @@ export default function Home() {
                 Transforming Ideas into Seamless Web Experiences
             </motion.h1>
 
+            {/* About Section */}
             <div id="about-section" className="max-w-xl mx-auto space-y-8 text-center my-12">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
                     About Me
                 </h2>
             </div>
 
+            {/* About Content with Image */}
             <div className="container m-auto px-6 text-gray-300 md:px-12 xl:px-6 py-8">
                 <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-start lg:gap-12">
                     <div className="md:5/12 lg:w-4/12 animate-slideIn">
@@ -155,71 +255,44 @@ export default function Home() {
                     </div>
                 </div>
 
+                {/* Certificates Section */}
                 <motion.div 
                     variants={staggerContainer}
                     initial="initial"
                     animate="animate"
                     className="mt-16 space-y-8"
                 >
-                    <motion.h2 
-                        variants={fadeInUp}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse mb-12"
-                    >
+                    {/* Course Certificates */}
+                    <motion.h2 variants={fadeInUp}>
                         Courses Certifications
                     </motion.h2>
-
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {coursesCertificates.map((cert) => (
-                            <motion.div 
-                                key={cert.id}
-                                variants={cardVariants}
-                                whileHover="hover"
-                                className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full"
-                            >
-                                <div className="relative aspect-[4/3] w-full">
-                                    <img
-                                        className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
-                                        src={cert.src}
-                                        alt={cert.name}
-                                    />
-                                </div>
-                                <p className="text-gray-300 text-center font-medium">
-                                    {cert.name}
-                                </p>
-                            </motion.div>
+                            <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
 
-                    <motion.h2 
-                        variants={fadeInUp}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse mb-12 mt-16"
-                    >
+                    {/* Internship Certificates */}
+                    <motion.h2 variants={fadeInUp}>
                         Internship Certifications
                     </motion.h2>
-
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {internshipCertificates.map((cert) => (
-                            <motion.div 
-                                key={cert.id}
-                                variants={cardVariants}
-                                whileHover="hover"
-                                className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full"
-                            >
-                                <div className="relative aspect-[4/3] w-full">
-                                    <img
-                                        className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
-                                        src={cert.src}
-                                        alt={cert.name}
-                                    />
-                                </div>
-                                <p className="text-gray-300 text-center font-medium">
-                                    {cert.name}
-                                </p>
-                            </motion.div>
+                            <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
                 </motion.div>
             </div>
+
+            {/* Modal */}
+            <AnimatePresence>
+                {selectedCertificate && (
+                    <CertificateModal
+                        certificate={selectedCertificate}
+                        onClose={() => setSelectedCertificate(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }
