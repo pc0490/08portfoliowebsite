@@ -19,36 +19,47 @@ export default function Home() {
     // State for modal
     const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-    // Animation variants
+    // Enhanced animation variants
     const staggerContainer = {
         initial: { opacity: 0 },
         animate: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2
+                staggerChildren: 0.3,
+                delayChildren: 0.2
             }
         }
     };
 
     const fadeInUp = {
-        initial: { y: 50, opacity: 0 },
-        animate: { y: 0, opacity: 1 },
-        transition: { duration: 0.5 }
+        initial: { y: 60, opacity: 0 },
+        animate: { 
+            y: 0, 
+            opacity: 1,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        }
     };
 
     const cardVariants = {
-        initial: { scale: 0.9, opacity: 0 },
+        initial: { scale: 0.9, opacity: 0, y: 50 },
         animate: { 
             scale: 1, 
             opacity: 1,
+            y: 0,
             transition: {
-                duration: 0.5
+                duration: 0.6,
+                ease: "easeOut"
             }
         },
         hover: {
             scale: 1.05,
+            boxShadow: "0 0 20px rgba(168,85,247,0.4)",
             transition: {
-                duration: 0.2
+                duration: 0.2,
+                ease: "easeInOut"
             }
         }
     };
@@ -138,12 +149,17 @@ export default function Home() {
     };
 
     return (
-        <div className="w-full bg-black min-h-screen">
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="w-full bg-black min-h-screen overflow-hidden"
+        >
             {/* Header Section with Title */}
             <motion.aside 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
                 className="relative overflow-hidden text-gray-100 sm:mx-16 mx-2 sm:py-16"
             >
                 {/* Portfolio title and name */}
@@ -157,28 +173,30 @@ export default function Home() {
                 </div>
             </motion.aside>
 
-            {/* Profile Image with Animation */}
+            {/* Profile Image with Enhanced Animation */}
             <motion.div 
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 50, opacity: 0, rotate: -5 }}
                 animate={{ 
                     y: 0, 
                     opacity: 1,
+                    rotate: 0,
                     transition: {
-                        duration: 0.5
+                        duration: 0.8,
+                        ease: "easeOut"
                     }
                 }}
                 whileHover={{ 
-                    scale: 1.1,
-                    rotate: [0, -5, 5, -5, 0], // Rotation animation on hover
+                    scale: 1.05,
+                    rotate: [0, -3, 3, -3, 0],
                     transition: {
                         duration: 0.5,
                         rotate: {
                             repeat: Infinity,
-                            duration: 1
+                            duration: 2
                         }
                     }
                 }}
-                className="absolute top-40 left-16"
+                className="absolute top-40 left-16 transition-all duration-300"
             >
                 <img 
                     className="sm:w-96 w-48 opacity-90 
@@ -189,8 +207,13 @@ export default function Home() {
                 />
             </motion.div>
 
-            {/* Decorative Image Section */}
-            <div className="flex justify-center items-center px-4 sm:px-16">
+            {/* Decorative Image Section with Enhanced Animation */}
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="flex justify-center items-center px-4 sm:px-16"
+            >
                 <motion.div 
                     initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -206,24 +229,33 @@ export default function Home() {
                         alt="image2-right" 
                     />
                 </motion.div>
-            </div>
+            </motion.div>
 
-            {/* Tagline Section */}
+            {/* Enhanced Tagline Section */}
             <motion.h1 
-                initial={{ opacity: 0.8 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="text-center text-xl sm:text-4xl py-10 font-medium text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text animate-pulse hover:scale-105 transition-transform duration-300"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-center text-xl sm:text-4xl py-10 font-medium 
+                text-transparent bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 
+                bg-clip-text animate-pulse hover:scale-105 transition-transform duration-300"
             >
                 Transforming Ideas into Seamless Web Experiences
             </motion.h1>
 
-            {/* About Section */}
-            <div id="about-section" className="max-w-xl mx-auto space-y-8 text-center my-12">
+            {/* About Section with Enhanced Animation */}
+            <motion.div
+                id="about-section"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="max-w-xl mx-auto space-y-8 text-center my-12"
+            >
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
                     About Me
                 </h2>
-            </div>
+            </motion.div>
 
             {/* About Content with Image */}
             <div className="container m-auto px-6 text-gray-300 md:px-12 xl:px-6 py-8">
@@ -255,15 +287,32 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Certificates Section */}
+                {/* Certificates Section with Enhanced Animations */}
                 <motion.div 
                     variants={staggerContainer}
                     initial="initial"
-                    animate="animate"
-                    className="mt-16 space-y-8"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                    className="mt-16 space-y-12"
                 >
                     {/* Course Certificates */}
-                    <motion.h2 variants={fadeInUp}>
+                    <motion.h2 
+                        variants={fadeInUp}
+                        whileHover={{ 
+                            scale: 1.05,
+                            textShadow: "0 0 8px rgb(168,85,247,0.4)",
+                            transition: { 
+                                duration: 0.2,
+                                yoyo: Infinity 
+                            }
+                        }}
+                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8
+                        bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent
+                        transition-all duration-300 transform
+                        cursor-pointer select-none
+                        filter drop-shadow-lg
+                        animate-pulse"
+                    >
                         Courses Certifications
                     </motion.h2>
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
@@ -273,7 +322,23 @@ export default function Home() {
                     </motion.div>
 
                     {/* Internship Certificates */}
-                    <motion.h2 variants={fadeInUp}>
+                    <motion.h2 
+                        variants={fadeInUp}
+                        whileHover={{ 
+                            scale: 1.05,
+                            textShadow: "0 0 8px rgb(168,85,247,0.4)",
+                            transition: { 
+                                duration: 0.2,
+                                yoyo: Infinity 
+                            }
+                        }}
+                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 mt-16
+                        bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent
+                        transition-all duration-300 transform
+                        cursor-pointer select-none
+                        filter drop-shadow-lg
+                        animate-pulse"
+                    >
                         Internship Certifications
                     </motion.h2>
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
@@ -284,15 +349,43 @@ export default function Home() {
                 </motion.div>
             </div>
 
-            {/* Modal */}
-            <AnimatePresence>
+            {/* Enhanced Modal */}
+            <AnimatePresence mode="wait">
                 {selectedCertificate && (
-                    <CertificateModal
-                        certificate={selectedCertificate}
-                        onClose={() => setSelectedCertificate(null)}
-                    />
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 bg-black bg-opacity-90 z-50 
+                        backdrop-blur-sm flex items-center justify-center p-4"
+                        onClick={() => setSelectedCertificate(null)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.5, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            className="relative w-full h-full flex items-center justify-center p-4"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <img
+                                src={selectedCertificate.src}
+                                alt={selectedCertificate.name}
+                                className="w-auto h-auto max-w-[90%] max-h-[85vh] object-contain rounded-lg"
+                            />
+                            <button
+                                onClick={() => setSelectedCertificate(null)}
+                                className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </motion.div>
+                    </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </motion.div>
     );
 }
