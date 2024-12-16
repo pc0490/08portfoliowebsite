@@ -19,7 +19,7 @@ export default function Home() {
     // State for modal
     const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-    // Enhanced animation variants
+    // Enhanced animation variants`
     const staggerContainer = {
         initial: { opacity: 0 },
         animate: {
@@ -142,12 +142,6 @@ export default function Home() {
                     </p>
                 </div>
             </div>
-            <p className="text-gray-300 text-center font-medium">
-                {cert.name}
-            </p>
-            <p className="text-gray-300 text-center font-medium">
-                {cert.name}
-            </p>
         </motion.div>
     );
 
@@ -310,7 +304,7 @@ export default function Home() {
                         whileHover={{ 
                             scale: 1.05,
                             textShadow: "0 0 8px rgb(168,85,247,0.4)",
-                            transition: {i 
+                            transition: { 
                                 duration: 0.2,
                                 yoyo: Infinity 
                             }
@@ -326,7 +320,6 @@ export default function Home() {
                     </motion.h2>
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {coursesCertificates.map((cert) => (
-                            <CertificateCard key={cert.id} cert={cert} />
                             <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
@@ -353,7 +346,7 @@ export default function Home() {
                     </motion.h2>
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {internshipCertificates.map((cert) => (
-                            <CertificateCard key={cert.id} cert={cert} />
+                            
                             <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
