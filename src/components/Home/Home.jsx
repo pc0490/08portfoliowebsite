@@ -145,6 +145,9 @@ export default function Home() {
             <p className="text-gray-300 text-center font-medium">
                 {cert.name}
             </p>
+            <p className="text-gray-300 text-center font-medium">
+                {cert.name}
+            </p>
         </motion.div>
     );
 
@@ -219,8 +222,6 @@ export default function Home() {
             <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex justify-center items-center px-4 sm:px-16"
             >
                 <motion.div 
                     initial={{ y: 50, opacity: 0 }}
@@ -309,7 +310,7 @@ export default function Home() {
                         whileHover={{ 
                             scale: 1.05,
                             textShadow: "0 0 8px rgb(168,85,247,0.4)",
-                            transition: { 
+                            transition: {i 
                                 duration: 0.2,
                                 yoyo: Infinity 
                             }
@@ -325,6 +326,7 @@ export default function Home() {
                     </motion.h2>
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {coursesCertificates.map((cert) => (
+                            <CertificateCard key={cert.id} cert={cert} />
                             <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
@@ -352,6 +354,7 @@ export default function Home() {
                     <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
                         {internshipCertificates.map((cert) => (
                             <CertificateCard key={cert.id} cert={cert} />
+                            <CertificateCard key={cert.id} cert={cert} />
                         ))}
                     </motion.div>
                 </motion.div>
@@ -360,10 +363,38 @@ export default function Home() {
             {/* Modal */}
             <AnimatePresence mode="wait">
                 {selectedCertificate && (
-                    <CertificateModal 
-                        certificate={selectedCertificate} 
-                        onClose={() => setSelectedCertificate(null)} 
-                    />
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 bg-black bg-opacity-90 z-50 
+                        backdrop-blur-sm flex items-center justify-center p-4"
+                        onClick={() => setSelectedCertificate(null)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.5, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            className="relative w-full h-full flex items-center justify-center p-4"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <img
+                                src={selectedCertificate.src}
+                                alt={selectedCertificate.name}
+                                className="w-auto h-auto max-w-[90%] max-h-[85vh] object-contain rounded-lg"
+                            />
+                            <button
+                                onClick={() => setSelectedCertificate(null)}
+                                className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </motion.div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </motion.div>
