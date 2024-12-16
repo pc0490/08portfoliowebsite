@@ -127,16 +127,21 @@ export default function Home() {
             onClick={() => setSelectedCertificate(cert)}
             className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full cursor-pointer"
         >
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-[4/3] w-full group">
                 <img
                     className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
                     src={cert.src}
                     alt={cert.name}
                 />
+                {/* Overlay with certificate name */}
+                <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 
+                    transition-opacity duration-300 rounded-xl flex items-center justify-center">
+                    <p className="text-white text-center font-medium px-4 transform scale-0 group-hover:scale-100 
+                        transition-transform duration-300">
+                        {cert.name}
+                    </p>
+                </div>
             </div>
-            <p className="text-gray-300 text-center font-medium">
-                {cert.name}
-            </p>
         </motion.div>
     );
 
