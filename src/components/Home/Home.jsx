@@ -11,7 +11,7 @@ export default function Home() {
         { id: 4, src: "./Eduskills.jpg", name: "Eduskills Internship Certificate"}
     ];
 
-    // State for modal
+    // State for modals
     const [selectedCertificate, setSelectedCertificate] = useState(null);
 
     // Enhanced animation variants
