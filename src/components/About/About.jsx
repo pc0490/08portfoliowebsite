@@ -1,38 +1,100 @@
+import { motion } from 'framer-motion'
+
 export default function About() {
-  return (
-      <div className="py-16 bg-black text-gray-100 min-h-screen">
-          <div className="container m-auto px-6 text-gray-300 md:px-12 xl:px-6">
-              <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-center lg:gap-12">
-                  <div className="md:5/12 lg:w-5/12 animate-slideIn">
-                      <img
-                          className="rounded-xl shadow-xl shadow-orange-500/20 hover:shadow-orange-500/40 transition-all duration-300 hover:scale-105"
-                          src="https://images.pexels.com/photos/22698026/pexels-photo-22698026/free-photo-of-wind-turbines-on-mountains-with-winding-roads.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                          alt="image"
-                          width={400}
-                      />
-                  </div>
-                  <div className="md:7/12 lg:w-6/12 animate-fadeIn">
-                      <h1 className="text-center text-4xl sm:text-6xl py-10 font-bold text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text animate-pulse hover:scale-105 transition-transform duration-300">
-                          About Me
-                      </h1>
-                      <h2 className="text-2xl text-transparent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text font-bold md:text-4xl">
-                        Full-Stack Developer in the Making
-                      </h2>
-                      <p className="mt-6 text-gray-300 hover:text-gray-200 transition-colors duration-300">
-                      With a strong foundation in Computer Science and Engineering, I am 
-                      on a journey to master full-stack development. My expertise in C 
-                      programming and DSA forms the backbone of my problem-solving skills, 
-                      while my knowledge of Java, Python, and modern web technologies like 
-                      React.js, HTML, and CSS enables me to deliver end-to-end solutions. 
-                      I am always eager to learn and contribute to innovative projects.
-                      </p>
-                      <p className="mt-4 text-gray-300">
-                      I am committed to excellence and thrive on building efficient, impactful, 
-                      and innovative software solutions.
-                      </p>
-                  </div>
-              </div>
-          </div>
-      </div>
-  );
+    return (
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full bg-[#0B0B0B] min-h-screen pt-24"
+        >
+            <div className="container mx-auto px-4 py-8">
+                <motion.div 
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-4xl mx-auto space-y-12"
+                >
+                    {/* Profile Section */}
+                    <section className="flex flex-col md:flex-row items-center gap-12">
+                        <motion.img
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                            src="/piyush.jpg"
+                            alt="Profile"
+                            className="w-64 h-64 rounded-2xl object-cover shadow-2xl"
+                        />
+                        <div className="space-y-4 text-center md:text-left">
+                            <h1 className="text-4xl font-bold text-white">
+                                Full-Stack Developer
+                            </h1>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                With a strong foundation in Computer Science and Engineering, 
+                                I am passionate about creating efficient and innovative solutions.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* Skills Section */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-bold text-white">Skills & Technologies</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {['React', 'JavaScript', 'Python', 'Java', 'C', 'HTML/CSS', 'Node.js', 'DSA'].map((skill) => (
+                                <motion.div
+                                    key={skill}
+                                    whileHover={{ scale: 1.05, backgroundColor: '#1A1A1A' }}
+                                    className="p-4 rounded-lg bg-[#161616] text-gray-400 text-center
+                                        transition-colors duration-200"
+                                >
+                                    {skill}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Experience Section */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-bold text-white">About Me</h2>
+                        <div className="space-y-4 text-gray-400">
+                            <p className="leading-relaxed">
+                                I am on a journey to master full-stack development. My expertise in C 
+                                programming and DSA forms the backbone of my problem-solving skills, 
+                                while my knowledge of Java, Python, and modern web technologies enables 
+                                me to deliver end-to-end solutions.
+                            </p>
+                            <p className="leading-relaxed">
+                                I am committed to excellence and thrive on building efficient, impactful, 
+                                and innovative software solutions. I am always eager to learn and contribute 
+                                to innovative projects.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section className="space-y-6">
+                        <h2 className="text-2xl font-bold text-white">Get In Touch</h2>
+                        <div className="flex flex-wrap gap-4">
+                            <motion.a
+                                whileHover={{ scale: 1.05 }}
+                                href="mailto:piyushchauhan0490@gmail.com"
+                                className="px-6 py-3 bg-[#1A1A1A] rounded-lg text-gray-400 hover:text-white
+                                    transition-colors duration-200"
+                            >
+                                Email Me
+                            </motion.a>
+                            <motion.a
+                                whileHover={{ scale: 1.05 }}
+                                href="https://github.com/pc0490"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-6 py-3 bg-[#1A1A1A] rounded-lg text-gray-400 hover:text-white
+                                    transition-colors duration-200"
+                            >
+                                GitHub Profile
+                            </motion.a>
+                        </div>
+                    </section>
+                </motion.div>
+            </div>
+        </motion.div>
+    )
 }

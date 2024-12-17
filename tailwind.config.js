@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -39,6 +41,10 @@ export default {
       },
       colors: {
         'custom-black': '#000000',
+        dark: {
+          DEFAULT: '#0B0B0B',
+          'lighter': '#1A1A1A',
+        }
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -46,7 +52,22 @@ export default {
       boxShadow: {
         'glow': '0 0 15px rgba(249, 115, 22, 0.3)', // orange-500 with opacity
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#9CA3AF',
+            a: {
+              color: '#fff',
+              '&:hover': {
+                color: '#9CA3AF',
+              },
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    typography,
+  ],
 }

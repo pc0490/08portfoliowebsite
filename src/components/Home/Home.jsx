@@ -2,8 +2,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+    const navigate = useNavigate()
     // Data arrays for certificates
     const coursesCertificates = [
         { id: 1, src: "/WebDev.jpg", name: "Web Development Certificate" },
@@ -19,47 +21,37 @@ export default function Home() {
     // State for modal
     const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-    // Enhanced animation variants`
+    // Enhanced animation variants
     const staggerContainer = {
         initial: { opacity: 0 },
         animate: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.3,
-                delayChildren: 0.2
+                staggerChildren: 0.2,
+                delayChildren: 0.1
             }
         }
     };
 
-    const fadeInUp = {
-        initial: { y: 60, opacity: 0 },
-        animate: { 
-            y: 0, 
-            opacity: 1,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut"
-            }
-        }
-    };
-
+    // Enhanced card variants
     const cardVariants = {
-        initial: { scale: 0.9, opacity: 0, y: 50 },
+        initial: { scale: 0.95, opacity: 0, y: 30 },
         animate: { 
             scale: 1, 
             opacity: 1,
             y: 0,
             transition: {
-                duration: 0.6,
-                ease: "easeOut"
+                duration: 0.8,
+                ease: [0.6, -0.05, 0.01, 0.99]
             }
         },
         hover: {
             scale: 1.05,
-            boxShadow: "0 0 20px rgba(168,85,247,0.4)",
+            y: -10,
+            boxShadow: "0 0 30px rgba(168,85,247,0.5)",
             transition: {
-                duration: 0.2,
-                ease: "easeInOut"
+                duration: 0.3,
+                ease: "easeOut"
             }
         }
     };
@@ -119,25 +111,29 @@ export default function Home() {
         onClose: PropTypes.func.isRequired
     };
 
-    // Certificate Card Component
+    // Enhanced Certificate Card Component
     const CertificateCard = ({ cert }) => (
         <motion.div 
             variants={cardVariants}
             whileHover="hover"
+            whileTap={{ scale: 0.98 }}
             onClick={() => setSelectedCertificate(cert)}
-            className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full cursor-pointer"
+            className="flex flex-col items-center space-y-4 max-w-xs mx-auto w-full cursor-pointer
+                transform perspective-1000 transition-all duration-300"
         >
-            <div className="relative aspect-[4/3] w-full group">
+            <div className="relative aspect-[4/3] w-full group overflow-hidden rounded-xl">
                 <img
-                    className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-300"
+                    className="rounded-xl shadow-xl w-full h-full object-cover transition-all duration-500
+                        group-hover:scale-110"
                     src={cert.src}
                     alt={cert.name}
                 />
-                {/* Overlay with certificate name */}
-                <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 
-                    transition-opacity duration-300 rounded-xl flex items-center justify-center">
+                {/* Enhanced overlay with certificate name */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent 
+                    opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl 
+                    flex items-center justify-center backdrop-blur-sm">
                     <p className="text-white text-center font-medium px-4 transform scale-0 group-hover:scale-100 
-                        transition-transform duration-300">
+                        transition-all duration-300 text-lg">
                         {cert.name}
                     </p>
                 </div>
@@ -153,243 +149,174 @@ export default function Home() {
         }).isRequired
     };
 
+    const goToAbout = () => {
+        navigate('/about');
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="w-full bg-black min-h-screen overflow-hidden"
+            transition={{ duration: 1 }}
+            className="w-full bg-[#0B0B0B] min-h-screen overflow-hidden"
         >
-            {/* Header Section with Title */}
-            <motion.aside 
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="relative overflow-hidden text-gray-100 sm:mx-16 mx-2 sm:py-16"
-            >
-                {/* Portfolio title and name */}
-                <div className="relative z-10 max-w-screen-xl px-4 pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
-                    <div className="max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto animate-fadeIn">
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
-                            My Portfolio Website
-                            <span className="hidden sm:block text-2xl sm:text-3xl md:text-4xl text-gray-300 transition-colors duration-300 animate-pulse">~ Piyush Chauhan</span>
-                        </h2>
-                    </div>
-                </div>
-            </motion.aside>
-
-            {/* Profile Image with Enhanced Animation */}
+            {/* Hero Section */}
             <motion.div 
-                initial={{ y: 50, opacity: 0, rotate: -5 }}
-                animate={{ 
-                    y: 0, 
-                    opacity: 1,
-                    rotate: 0,
-                    transition: {
-                        duration: 0.8,
-                        ease: "easeOut"
-                    }
-                }}
-                whileHover={{ 
-                    scale: 1.05,
-                    rotate: [0, -3, 3, -3, 0],
-                    transition: {
-                        duration: 0.5,
-                        rotate: {
-                            repeat: Infinity,
-                            duration: 2
-                        }
-                    }
-                }}
-                className="absolute top-40 left-16 transition-all duration-300"
-            >
-                <img 
-                    className="sm:w-96 w-48 opacity-90 
-                    transition-all duration-500
-                    filter hover:drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]"
-                    src="/piyush.jpg"
-                    alt="image2-left" 
-                />
-            </motion.div>
-
-            {/* Decorative Image Section with Enhanced Animation */}
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-            >
-                <motion.div 
-                    initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="grid place-items-center sm:mt-20"
-                >
-                    <img 
-                        className="sm:w-96 w-48 opacity-90 hover:opacity-100 
-                        transition-all duration-500 animate-float 
-                        hover:scale-105 filter hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]
-                        hover:rotate-[-2deg]"
-                        src="https://i.ibb.co/2M7rtLk/Remote1.png" 
-                        alt="image2-right" 
-                    />
-                </motion.div>
-            </motion.div>
-
-            {/* Enhanced Tagline Section */}
-            <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-center text-xl sm:text-4xl py-10 font-medium 
-                text-transparent bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 
-                bg-clip-text animate-pulse hover:scale-105 transition-transform duration-300"
-            >
-                Transforming Ideas into Seamless Web Experiences
-            </motion.h1>
-
-            {/* About Section with Enhanced Animation */}
-            <motion.div
-                id="about-section"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="max-w-xl mx-auto space-y-8 text-center my-12"
+                className="container mx-auto px-4 pt-32 pb-20"
             >
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 animate-pulse">
-                    About Me
-                </h2>
+                {/* Status Badge */}
+                <motion.div 
+                    className="inline-flex items-center gap-2 bg-[#1A1A1A] rounded-full px-4 py-2 mb-8"
+                    whileHover={{ scale: 1.05 }}
+                >
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <span className="text-gray-400 text-sm">Currently working on Portfolio Projects</span>
+                </motion.div>
+
+                {/* Main Heading */}
+                <h1 className="text-7xl font-bold text-white mb-6">
+                    I&apos;m Piyush 
+                </h1>
+
+                {/* Description */}
+                <p className="text-gray-400 text-xl max-w-2xl mb-8">
+                    I am working with React Ecosystem, learning to build modern web applications 
+                    with focus on user experience and performance.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex gap-4">
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-white text-black px-6 py-3 rounded-lg font-medium"
+                    >
+                        Learn How
+                    </motion.button>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={goToAbout}
+                        className="border border-gray-700 text-white px-6 py-3 rounded-lg font-medium"
+                    >
+                        More about me
+                    </motion.button>
+                </div>
+
+                {/* Social Links */}
+                <div className="flex gap-6 mt-12">
+                    {/* Replace with your social icons */}
+                    <motion.a
+                        whileHover={{ scale: 1.1 }}
+                        href="#"
+                        className="text-gray-600 hover:text-gray-400"
+                    >
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            {/* Add your social icons SVG paths */}
+                        </svg>
+                    </motion.a>
+                    {/* Add more social links */}
+                </div>
             </motion.div>
 
-            {/* About Content with Image */}
-            <div className="container m-auto px-6 text-gray-300 md:px-12 xl:px-6 py-8">
-                <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-start lg:gap-12">
-                    <div className="md:5/12 lg:w-4/12 animate-slideIn">
-                        <img
-                            className="rounded-xl shadow-xl shadow-orange-500/20 hover:shadow-orange-500/40 transition-all duration-300 hover:scale-105"
-                            src="https://images.pexels.com/photos/22698026/pexels-photo-22698026/free-photo-of-wind-turbines-on-mountains-with-winding-roads.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                            alt="about image"
-                            width={300}
-                        />
-                    </div>
-                    <div className="md:7/12 lg:w-7/12 animate-fadeIn pt-0">
-                        <h2 className="text-2xl text-transparent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text font-bold md:text-4xl">
-                            Full-Stack Developer in the Making
-                        </h2>
-                        <p className="mt-4 text-gray-300 hover:text-gray-200 transition-colors duration-300">
-                            With a strong foundation in Computer Science and Engineering, I am 
-                            on a journey to master full-stack development. My expertise in C 
-                            programming and DSA forms the backbone of my problem-solving skills, 
-                            while my knowledge of Java, Python, and modern web technologies like 
-                            React.js, HTML, and CSS enables me to deliver end-to-end solutions. 
-                            I am always eager to learn and contribute to innovative projects.
-                        </p>
-                        <p className="mt-4 text-gray-300">
-                            I am committed to excellence and thrive on building efficient, impactful, 
-                            and innovative software solutions.
-                        </p>
+            {/* Projects/Certificates Section */}
+            <motion.div 
+                variants={staggerContainer}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="bg-[#0F0F0F] py-20"
+            >
+                <div className="container mx-auto px-4">
+                    <h2 className="text-3xl font-bold text-white mb-12">
+                        Certifications
+                    </h2>
+                    
+                    {/* Certificate Grid with hover effect */}
+                    <div className="flex flex-wrap justify-center gap-6">
+                        {[...coursesCertificates, ...internshipCertificates].map((cert) => (
+                            <motion.div
+                                key={cert.id}
+                                variants={cardVariants}
+                                className="bg-[#1A1A1A] rounded-lg overflow-hidden w-48 cursor-pointer"
+                                whileHover={{
+                                    y: -10,
+                                    transition: { duration: 0.3 }
+                                }}
+                                onClick={() => setSelectedCertificate(cert)}
+                            >
+                                <div className="relative aspect-[3/4] group">
+                                    <img
+                                        src={cert.src}
+                                        alt={cert.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    {/* Overlay with name on hover */}
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 
+                                        transition-opacity duration-300 flex items-center justify-center">
+                                        <p className="text-white text-sm font-medium px-2 text-center">
+                                            {cert.name}
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
 
-                {/* Certificates Section with Enhanced Animations */}
-                <motion.div 
-                    variants={staggerContainer}
-                    initial="initial"
-                    whileInView="animate"
-                    viewport={{ once: true }}
-                    className="mt-16 space-y-12"
-                >
-                    {/* Course Certificates */}
-                    <motion.h2 
-                        variants={fadeInUp}
-                        whileHover={{ 
-                            scale: 1.05,
-                            textShadow: "0 0 8px rgb(168,85,247,0.4)",
-                            transition: { 
-                                duration: 0.2,
-                                yoyo: Infinity 
-                            }
-                        }}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8
-                        bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent
-                        transition-all duration-300 transform
-                        cursor-pointer select-none
-                        filter drop-shadow-lg
-                        animate-pulse"
-                    >
-                        Courses Certifications
-                    </motion.h2>
-                    <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
-                        {coursesCertificates.map((cert) => (
-                            <CertificateCard key={cert.id} cert={cert} />
-                        ))}
-                    </motion.div>
-
-                    {/* Internship Certificates */}
-                    <motion.h2 
-                        variants={fadeInUp}
-                        whileHover={{ 
-                            scale: 1.05,
-                            textShadow: "0 0 8px rgb(168,85,247,0.4)",
-                            transition: { 
-                                duration: 0.2,
-                                yoyo: Infinity 
-                            }
-                        }}
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 mt-16
-                        bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent
-                        transition-all duration-300 transform
-                        cursor-pointer select-none
-                        filter drop-shadow-lg
-                        animate-pulse"
-                    >
-                        Internship Certifications
-                    </motion.h2>
-                    <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-8 px-4 max-w-3xl mx-auto">
-                        {internshipCertificates.map((cert) => (
-                            
-                            <CertificateCard key={cert.id} cert={cert} />
-                        ))}
-                    </motion.div>
-                </motion.div>
-            </div>
-
-            {/* Modal */}
-            <AnimatePresence mode="wait">
-                {selectedCertificate && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black bg-opacity-90 z-50 
-                        backdrop-blur-sm flex items-center justify-center p-4"
-                        onClick={() => setSelectedCertificate(null)}
-                    >
+                {/* Modal for viewing certificates */}
+                <AnimatePresence>
+                    {selectedCertificate && (
                         <motion.div
-                            initial={{ scale: 0.5, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.5, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="relative w-full h-full flex items-center justify-center p-4"
-                            onClick={e => e.stopPropagation()}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedCertificate(null)}
+                            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
                         >
-                            <img
-                                src={selectedCertificate.src}
-                                alt={selectedCertificate.name}
-                                className="w-auto h-auto max-w-[90%] max-h-[85vh] object-contain rounded-lg"
-                            />
-                            <button
-                                onClick={() => setSelectedCertificate(null)}
-                                className="absolute top-2 right-2 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+                            <motion.div
+                                initial={{ scale: 0.5 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0.5 }}
+                                className="relative max-w-4xl max-h-[90vh]"
+                                onClick={e => e.stopPropagation()}
                             >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+                                <img
+                                    src={selectedCertificate.src}
+                                    alt={selectedCertificate.name}
+                                    className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg"
+                                />
+                                <button
+                                    onClick={() => setSelectedCertificate(null)}
+                                    className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 rounded-full p-2 
+                                        transition-colors duration-200"
+                                >
+                                    <svg
+                                        className="w-6 h-6 text-white"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
+                                </button>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    )}
+                </AnimatePresence>
+            </motion.div>
         </motion.div>
     );
 }
