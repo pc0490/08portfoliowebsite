@@ -55,62 +55,6 @@ export default function Home() {
             }
         }
     };
-
-    // Modal Component
-    const CertificateModal = ({ certificate, onClose }) => {
-        if (!certificate) return null;
-
-        return (
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={onClose}
-                className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
-            >
-                <motion.div
-                    initial={{ scale: 0.5 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0.5 }}
-                    className="relative w-full max-w-4xl max-h-[90vh] flex items-center justify-center"
-                    onClick={e => e.stopPropagation()}
-                >
-                    <img
-                        src={certificate.src}
-                        alt={certificate.name}
-                        className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg"
-                    />
-                    <button
-                        onClick={onClose}
-                        className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
-                    >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
-                </motion.div>
-            </motion.div>
-        );
-    };
-
-    CertificateModal.propTypes = {
-        certificate: PropTypes.shape({
-            src: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired
-        }),
-        onClose: PropTypes.func.isRequired
-    };
-
     // Enhanced Certificate Card Component
     const CertificateCard = ({ cert }) => (
         <motion.div 
