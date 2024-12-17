@@ -1,4 +1,4 @@
-// Import Framer Motion for animations..
+// Import Framer Motion for animations.
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
