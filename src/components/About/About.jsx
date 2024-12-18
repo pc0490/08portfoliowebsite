@@ -81,7 +81,7 @@ export default function About() {
                     <section className="space-y-6">
                         <h2 className="text-2xl font-semibold text-white tracking-wide">Skills & Technologies</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {['React', 'JavaScript', 'Python', 'Java', 'C', 'HTML/CSS', 'Node.js', 'DSA'].map((skill) => (
+                            {['React', 'JavaScript', 'Python', 'Java', 'C', 'HTML', 'CSS', 'DSA'].map((skill) => (
                                 <motion.div
                                     key={skill}
                                     whileHover={{ scale: 1.05, backgroundColor: '#1A1A1A' }}
