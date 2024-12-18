@@ -14,6 +14,7 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fadeInScale': 'fadeInScale 1.5s ease-out forwards',
+        'gradient-xy': 'gradient-xy 3s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -38,6 +39,16 @@ export default {
             transform: 'scale(1) translateY(0)'
           },
         },
+        'gradient-xy': {
+          '0%, 100%': {
+            'background-size': '400% 400%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          }
+        }
       },
       colors: {
         'custom-black': '#000000',
@@ -65,9 +76,37 @@ export default {
           },
         },
       },
+      rotate: {
+        'y-180': '180deg',
+      },
+      perspective: {
+        'default': '1000px',
+      },
+      transformStyle: {
+        'preserve-3d': 'preserve-3d',
+      },
+      backfaceVisibility: {
+        'hidden': 'hidden',
+      },
     },
   },
   plugins: [
     typography(),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.perspective': {
+          'perspective': '1000px',
+        },
+        '.backface-hidden': {
+          'backface-visibility': 'hidden',
+        },
+        '.preserve-3d': {
+          'transform-style': 'preserve-3d',
+        },
+        '.rotate-y-180': {
+          'transform': 'rotateY(180deg)',
+        },
+      });
+    },
   ],
 }

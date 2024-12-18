@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 export default function Footer() {
     const navigate = useNavigate()
 
-    const scrollToTop = (e) => {
+    const goToHome = (e) => {
         e.preventDefault();
+        navigate('/');
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -66,7 +67,7 @@ export default function Footer() {
                             <ul className="text-gray-400">
                                 <li className="mb-4">
                                     <button 
-                                        onClick={scrollToTop}
+                                        onClick={goToHome}
                                         className="hover:text-white transition-colors duration-200"
                                     >
                                         Home
