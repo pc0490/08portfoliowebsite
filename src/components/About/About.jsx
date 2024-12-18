@@ -24,7 +24,7 @@ export default function About() {
                         <h1 className="text-5xl font-bold text-white">
                             About <span className="text-emerald-500">Me</span>
                         </h1>
-                        <p className="text-gray-400 mt-2">A story of growth and discovery</p>
+                        <p className="text-gray-400 mt-2">&quot;Turning curiosity into creation&quot;</p>
                     </section>
 
                     {/* Profile Section */}

@@ -185,6 +185,15 @@ export default function Home() {
                             {/* Simple gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-50"></div>
                         </div>
+                        {/* Added tagline below image */}
+                        <motion.p 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}
+                            className="text-white text-center mt-4 italic text-lg"
+                        >
+                            Exploring, learning, and creating
+                        </motion.p>
                         {/* Subtle decorative element */}
                         <div className="absolute -z-10 -inset-4 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 
                             rounded-2xl blur opacity-20"></div>
