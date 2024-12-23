@@ -253,6 +253,27 @@ export default function Home() {
                     </div>
                 </div>
 
+                {/* Skills Section */}
+                <div className="container mx-auto px-4">
+                    
+                    <section className="space-y-6">
+                            <h2 className="text-2xl font-semibold text-white tracking-wide mt-16 mb-12">What I&apos;ve Used To Build This Website</h2>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                {['React', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'HTML', 'CSS'].map((skill) => (
+                                    <motion.div
+                                        key={skill}
+                                        whileHover={{ scale: 1.07, backgroundColor: '#1A1A1A' }}
+                                        className="p-4 rounded-lg bg-[#161616] text-gray-300 text-center
+                                            transition-colors duration-200 font-light"
+                                    >
+                                        {skill}
+                                    </motion.div>
+                                ))}
+                            </div>
+                    </section>
+                </div>
+                
+
                 {/* Modal for viewing certificates */}
                 <AnimatePresence>
                     {selectedCertificate && (
@@ -298,6 +319,7 @@ export default function Home() {
                         </motion.div>
                     )}
                 </AnimatePresence>
+                
             </motion.div>
         </motion.div>
     );

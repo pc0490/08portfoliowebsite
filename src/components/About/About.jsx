@@ -35,7 +35,7 @@ export default function About() {
                                 {/* Front Image */}
                                 <div className="absolute inset-0">
                                     <motion.img
-                                        src="/Kodai2.jpg"
+                                        src="/Kodai1.jpg"
                                         alt="Profile"
                                         className="h-full w-full rounded-xl object-cover shadow-2xl [backface-visibility:hidden]"
                                         transition={{ duration: 0.3 }}
@@ -45,7 +45,7 @@ export default function About() {
                                 {/* Back Image */}
                                 <div className="absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]">
                                     <motion.img
-                                        src="/Kodai1.jpg"
+                                        src="/Kodai2.jpg"
                                         alt="AlternateProfile"
                                         className="h-full w-full rounded-xl object-cover shadow-2xl"
                                         transition={{ duration: 0.3 }}
@@ -81,10 +81,10 @@ export default function About() {
                     <section className="space-y-6">
                         <h2 className="text-2xl font-semibold text-white tracking-wide">Skills & Technologies</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {['React', 'JavaScript', 'Python', 'Java', 'C', 'HTML', 'CSS', 'DSA'].map((skill) => (
+                            {['React', 'JavaScript', 'TypeScript', 'Python', 'Java', 'C (DSA)', 'HTML', 'CSS'].map((skill) => (
                                 <motion.div
                                     key={skill}
-                                    whileHover={{ scale: 1.05, backgroundColor: '#1A1A1A' }}
+                                    whileHover={{ scale: 1.07, backgroundColor: '#1A1A1A' }}
                                     className="p-4 rounded-lg bg-[#161616] text-gray-300 text-center
                                         transition-colors duration-200 font-light"
                                 >
@@ -94,7 +94,7 @@ export default function About() {
                         </div>
                     </section>
 
-                    {/* Experience Section */}
+                    {/* More To Know Section */}
                     <section className="space-y-6">
                         <h2 className="text-2xl font-semibold text-white tracking-wide">More To Know</h2>
                         <div className="space-y-4 text-gray-300">
@@ -112,7 +112,7 @@ export default function About() {
                         </div>
                     </section>
 
-                    {/* Contact Section */}
+                    {/* Get In Touch Section */}
                     <section className="space-y-6">
                         <h2 className="text-2xl font-bold text-white">Get In Touch</h2>
                         <div className="flex flex-wrap gap-4">
