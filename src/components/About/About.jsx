@@ -17,9 +17,12 @@ export default function About() {
                     {/* About Me Header Section */}
                     <section className="text-center space-y-4">
                         <div className="inline-block p-3 rounded-full bg-[#161616] mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                            <motion.div whileHover={{ scale: 1.15, backgroundColor: '#161616' }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </motion.div>
                         </div>
                         <h1 className="text-5xl font-bold text-white">
                             About <span className="text-emerald-500">Me</span>
@@ -54,7 +57,7 @@ export default function About() {
                             </div>
                         </div>
 
-                        <div className="space-y-6 text-left flex-1">
+                        <div className="space-y-6 text-justify flex-1">
                             <h2 className="text-5xl font-bold text-white tracking-tight">
                                 Piyush Chauhan
                             </h2>
@@ -79,7 +82,7 @@ export default function About() {
 
                     {/* Skills Section */}
                     <section className="space-y-6">
-                        <h2 className="text-2xl font-semibold text-white tracking-wide">Skills & Technologies</h2>
+                        <h2 className="text-3xl font-bold text-white tracking-wide">Skills & Technologies</h2>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {['React', 'JavaScript', 'TypeScript', 'Python', 'Java', 'C (DSA)', 'HTML', 'CSS'].map((skill) => (
                                 <motion.div
@@ -96,8 +99,8 @@ export default function About() {
 
                     {/* More To Know Section */}
                     <section className="space-y-6">
-                        <h2 className="text-2xl font-semibold text-white tracking-wide">More To Know</h2>
-                        <div className="space-y-4 text-gray-300">
+                        <h2 className="text-3xl font-bold text-white tracking-wide ">More To Know</h2>
+                        <div className="space-y-4 text-gray-300 text-lg text-justify">
                             <p className="leading-relaxed font-light">
                                 I am on a journey to master full-stack development. My expertise in C 
                                 programming and DSA forms the backbone of my problem-solving skills, 

@@ -257,7 +257,7 @@ export default function Home() {
                 <div className="container mx-auto px-4">
                     
                     <section className="space-y-6">
-                            <h2 className="text-2xl font-semibold text-white tracking-wide mt-16 mb-12">What I&apos;ve Used To Build This Website</h2>
+                            <h2 className="text-3xl font-bold text-white tracking-wide mt-20 mb-12">What I&apos;ve Used To Build This Website</h2>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {['React', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'HTML', 'CSS'].map((skill) => (
                                     <motion.div
