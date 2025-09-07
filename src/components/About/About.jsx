@@ -70,7 +70,7 @@ export default function About() {
                                     and Engineering, I am passionate about creating efficient and innovative solutions.
                                 </p>
                                 <p className="text-gray-300 text-lg leading-relaxed font-light">
-                                    I&apos;m a second-year B.Tech Computer Science student at SRM University with a passion for 
+                                    I&apos;m a 3rd year B.Tech Computer Science student at SRM University with a passion for 
                                     exploring the world and discovering its natural wonders. Whether it&apos;s the calming sound 
                                     of rain or the thrill of visiting new places, I find joy in nature and adventure. When I&apos;m
                                     not coding or diving into tech projects, you&apos;ll likely find me wandering through lush landscapes
